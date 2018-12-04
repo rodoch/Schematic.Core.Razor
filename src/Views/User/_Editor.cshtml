@@ -1,0 +1,75 @@
+﻿@using Schematic.Core
+@using Schematic.Identity
+@model UserViewModel<User>
+@inject IViewLocalizer L
+
+@{
+    ViewData["UiLocale"] = CultureInfo.CurrentCulture.ToString();
+}
+
+<form class="resource-editor__form" asp-controller="Writer" asp-action="Update" method="post">
+    <h2 class="resource__title">
+        <schematic-resource-title>
+            @(Model.ResourceID > 0 ? Model.Resource.FullName : L["New user"].Value)
+        </schematic-resource-title>
+    </h2>
+
+    <partial name="_ValidationSummaryPartial" view-data="ViewData" />
+
+    <input type="hidden" asp-for="@Model.ResourceID" value="@Model.ResourceID" />
+    <input type="hidden" asp-for="@Model.Resource.ID" value="@Model.Resource.ID" />
+
+    @if (Model.UserVerificationRequired)
+    {
+        <schematic-user-invite-link 
+            url="@Url.Content("~/" + @ViewData["UiLocale"] + "/user/invite")" 
+            user-id="@Model.Resource.ID"
+            text="@L["This user has not yet verified their account by following the link in their invitation e-mail."]"
+            link="@L["Resend invitation"] »"
+            success="@L["The user invitation e-mail was re-sent."]">
+        </schematic-user-invite-link>
+    }
+
+    <fieldset class="resource-editor__fieldset">
+        <legend>@L["Personal details"]</legend>
+        
+        <label asp-for="@Model.Resource.Forenames"></label>
+        <input asp-for="@Model.Resource.Forenames" value="@Model.Resource.Forenames" />
+
+        <label asp-for="@Model.Resource.Surnames"></label>
+        <input asp-for="@Model.Resource.Surnames" value="@Model.Resource.Surnames" />
+
+        <label asp-for="@Model.Resource.Email"></label>
+        <input asp-for="@Model.Resource.Email" value="@Model.Resource.Email" />
+    </fieldset>
+
+    @if (Model.CanEditPassword)
+    {
+        <fieldset class="resource-editor__fieldset">
+            <legend>@L["Change your password"]</legend>
+
+            <p>@L["Type your new password twice below"]</p>
+            
+            <label asp-for="@Model.Password">@L["New password"]</label>
+            <input asp-for="@Model.Password" value="@Model.Password" />
+
+            <label asp-for="@Model.ConfirmPassword">@L["Confirm new password"]</label>
+            <input asp-for="@Model.ConfirmPassword" value="@Model.ConfirmPassword" />
+        </fieldset>
+    }
+
+    <fieldset class="resource-editor__fieldset">
+        <legend>@L["User permissions"]</legend>
+
+        <ul class="resource-editor__list--checkbox-list">
+            @for (int i = 0; i < Model.Resource.Roles.Count; i++)
+            {
+                <li class="resource-editor__item--checkbox-item">
+                    <input asp-for="Resource.Roles[i].ID" type="hidden" />
+                    <input class="checkbox" asp-for="Resource.Roles[i].HasRole" type="checkbox" />
+                    <label class="checkbox" asp-for="Resource.Roles[i].HasRole">@L[Model.Resource.Roles[i].DisplayTitle]</label>
+                </li>
+            }
+        </ul>
+    </fieldset>
+</form>

@@ -1,0 +1,17 @@
+﻿@using System.Security.Claims
+@using Schematic.Core
+@using Schematic.Identity
+
+@{
+    Layout = "_Layout";
+
+    ViewData["UiLocale"] = CultureInfo.CurrentCulture.ToString();
+    ViewData["UiLang"] = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    ViewData["UiLangName"] = CultureInfo.CurrentCulture.Parent.NativeName;
+
+    ViewData["CurrentController"] = ViewContext.RouteData.Values["Controller"];
+    ViewData["CurrentAction"] = ViewContext.RouteData.Values["Action"];
+
+    ViewData["UserID"] = (User.Identity as ClaimsIdentity).FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    ViewData["UserFullName"] = (User.Identity as ClaimsIdentity).GetSpecificClaim(ClaimTypes.Name);
+}

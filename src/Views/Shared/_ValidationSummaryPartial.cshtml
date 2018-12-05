@@ -1,3 +1,5 @@
+@using Schematic
+@using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> L
 
 @if (ViewData.ModelState.Values.SelectMany(v => v.Errors).Any())

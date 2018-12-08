@@ -1,6 +1,6 @@
 ﻿@using Schematic.Core
 @model AuthenticationViewModel
-@inject ISchematicSettings Settings
+@inject IOptionsMonitor<SchematicSettings> Settings
 @inject IViewLocalizer L
 
 <!DOCTYPE html>
@@ -14,8 +14,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 
-    <title>@Settings.ApplicationName</title>
-    <meta name="description" content="@L[Settings.ApplicationDescription]">
+    <title>@Settings.CurrentValue.ApplicationName</title>
+    <meta name="description" content="@L[Settings.CurrentValue.ApplicationDescription]">
 
     <link rel="stylesheet" href="~/css/schematic.css" />
 
@@ -44,18 +44,17 @@
     </nav>
     <main id="main" class="sign-in__main">
         <header class="sign-in__header">
-            @if (Settings.ApplicationIcon.HasValue())
+            @if (Settings.CurrentValue.ApplicationIcon.HasValue())
             {
                 <a href="@Url.Content("~/" + @ViewData["UiLocale"] + "/")">
                     <img class="sign-in__application-icon" 
-                        src="@Url.Content("~" + @Settings.ApplicationIcon)" 
-                        alt="@Settings.ApplicationName"
-                        style="@Settings.ApplicationIconStyle" />
+                        src="@Url.Content("~" + @Settings.CurrentValue.ApplicationIcon)" 
+                        alt="@Settings.CurrentValue.ApplicationName" />
                 </a>
             }
             else
             {
-                <h1 class="sign-in__heading">@Settings.ApplicationName</h1>
+                <h1 class="sign-in__heading">@Settings.CurrentValue.ApplicationName</h1>
             }
         </header>
         <schematic-sign-in url="@Url.Content("~/" + @ViewData["UiLocale"] + "/in/")"

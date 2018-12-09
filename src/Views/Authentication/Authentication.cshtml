@@ -44,11 +44,13 @@
     </nav>
     <main id="main" class="sign-in__main">
         <header class="sign-in__header">
-            @if (Settings.CurrentValue.ApplicationIcon.HasValue())
+            @if (Settings.CurrentValue.ApplicationIcon != null)
             {
                 <a href="@Url.Content("~/" + @ViewData["UiLocale"] + "/")">
                     <img class="sign-in__application-icon" 
-                        src="@Url.Content("~" + @Settings.CurrentValue.ApplicationIcon)" 
+                        src="@Url.Content("~" + @Settings.CurrentValue.ApplicationIcon.Path)"
+                        height="@Settings.CurrentValue.ApplicationIcon.Height"
+                        width="@Settings.CurrentValue.ApplicationIcon.Width"
                         alt="@Settings.CurrentValue.ApplicationName" />
                 </a>
             }

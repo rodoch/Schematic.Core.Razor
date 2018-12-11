@@ -18,6 +18,9 @@
     <meta name="description" content="@L[Settings.CurrentValue.ApplicationDescription]">
 
     <link rel="stylesheet" href="~/css/schematic.css" />
+    <style>
+        .sign-in { background-image:url("@(Url.Content("~/images/sign-in-background.svg"))"); }
+    </style>
 
     <script src="~/js/modernizr.js" inline></script>
     <script src="~/js/webcomponents-sd-ce.js"></script>
@@ -30,7 +33,7 @@
         <script src="~/schematic/dist/schematic.js"></script>
     </environment>
 </head>
-<body class="sign-in">
+<body class="sign-in" style="">
     <nav class="sign-in__language-switcher">
         <schematic-language-switcher>
             @foreach (var culture in LocOptions.Value.SupportedUICultures) 

@@ -2,15 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Schematic.Core.Razor</PackageId>
+    <PackageTags>schematic;cms;razor;views</PackageTags>
     <Version>0.1.7</Version>
     <Authors>Ronan Doherty</Authors>
-    <Description></Description>
+    <Company>Ronan Doherty</Company>
+    <Description>Razor class library for the Schematic CMS framework</Description>
+    <PackageIconUrl></PackageIconUrl>
     <PackageProjectUrl>https://github.com/rodoch/Schematic.Core.Razor/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/rodoch/Schematic.Core.Razor/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/rodoch/Schematic.Core.Razor/</RepositoryUrl>
-    <PackageTags>schematic cms razor views</PackageTags>
     <PackageReleaseNotes>Prerelease</PackageReleaseNotes>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
